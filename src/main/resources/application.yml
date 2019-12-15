@@ -1,0 +1,14 @@
+
+spring:
+
+  datasource:
+    username: postgres
+    password: root
+    url: jdbc:postgresql://localhost:5432/bd_nexsys
+    driver-class-name: org.postgresql.Driver
+  jackson:
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
