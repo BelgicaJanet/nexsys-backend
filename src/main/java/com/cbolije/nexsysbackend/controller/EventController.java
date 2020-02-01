@@ -1,18 +1,17 @@
 package com.cbolije.nexsysbackend.controller;
 
 import com.cbolije.nexsysbackend.model.dto.GraphEvent;
-import com.cbolije.nexsysbackend.model.entity.Event;
+import com.cbolije.nexsysbackend.model.entity.Person;
 import com.cbolije.nexsysbackend.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/events")
+@RestController()
+@RequestMapping("/events")
 public class EventController {
 
     private EventService eventService;
@@ -22,9 +21,9 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping("/events")
-    public Event getEvents() {
-        return new Event(1L, "Evento test");
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getEvents(@PathVariable("id") long id) {
+        return ResponseEntity.ok(eventService.getEventsByUser(id));
     }
 
 
@@ -34,4 +33,12 @@ public class EventController {
         return ResponseEntity.ok("");
     }
 
+    @GetMapping(value = "/dummy")
+    public Person getUser() {
+        Person p = new Person();
+        p.setId(1);
+        p.setName("Cristian");
+
+        return p;
+    }
 }

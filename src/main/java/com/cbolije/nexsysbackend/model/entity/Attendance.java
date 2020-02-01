@@ -7,21 +7,23 @@ import java.util.Date;
 @Entity
 public class Attendance implements Serializable{
 
-    private enum Status {
+	private static final long serialVersionUID = 1L;
+
+	private enum Status {
         PENDING, REGISTERED;
     }
 
     @EmbeddedId
     private AttendanceId id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "eventId")
-    @MapsId("eventId")
-    private Event event;
+    @JoinColumn(name = "meetingId")
+    @MapsId("meetingId")
+    private Meeting meeting;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personId")
     @MapsId("personId")
     private Person person;
-    private String comments;
+    private String observations;
     private Status status;
     private Date registerDate;
 
@@ -29,11 +31,11 @@ public class Attendance implements Serializable{
 
     }
 
-    public Attendance(Event event, Person person, Date registerDate) {
-        this.event = event;
+    public Attendance(Meeting meeting, Person person, Date registerDate) {
+        this.meeting = meeting;
         this.person = person;
         this.registerDate = registerDate;
-        this.id = new AttendanceId(event.getId(), person.getId());
+        this.id = new AttendanceId(meeting.getId(), person.getId());
     }
 
     public AttendanceId getId() {
@@ -44,12 +46,12 @@ public class Attendance implements Serializable{
         this.id = id;
     }
 
-    public Event getEvent() {
-        return event;
+    public Meeting getMeeting() {
+        return meeting;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setMeeting(Meeting meeting) {
+        this.meeting = meeting;
     }
 
     public Person getPerson() {
@@ -60,12 +62,12 @@ public class Attendance implements Serializable{
         this.person = person;
     }
 
-    public String getComments() {
-        return comments;
+    public String getObservations() {
+        return observations;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setObservations(String comments) {
+        this.observations = comments;
     }
 
     public Status getStatus() {

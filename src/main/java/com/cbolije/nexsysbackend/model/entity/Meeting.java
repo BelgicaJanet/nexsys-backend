@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Event {
+public class Meeting {
 
     @Id
-    @SequenceGenerator(name = "event_generator", sequenceName = "sq_event")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_generator")
+    @SequenceGenerator(name = "meeting_generator", sequenceName = "sq_meeting")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "meeting_generator")
     private long id;
     private String subject;
     private Date date;
@@ -25,17 +25,17 @@ public class Event {
     private Person organizer;
 
     @OneToMany(
-            mappedBy = "event",
+            mappedBy = "meeting",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<Attendance> attendances = new ArrayList<>();
 
-    public Event() {
+    public Meeting() {
 
     }
 
-    public Event(long id, String subject) {
+    public Meeting(long id, String subject) {
         this.id = id;
         this.subject = subject;
     }
@@ -114,8 +114,8 @@ public class Event {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return  Objects.equals(graphId, event.graphId);
+        Meeting meeting = (Meeting) o;
+        return  Objects.equals(graphId, meeting.graphId);
     }
 
     @Override

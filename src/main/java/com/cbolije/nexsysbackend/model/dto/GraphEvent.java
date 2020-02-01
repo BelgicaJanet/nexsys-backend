@@ -1,6 +1,7 @@
 package com.cbolije.nexsysbackend.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -8,13 +9,19 @@ import java.util.List;
 
 public class GraphEvent {
 
+    @JsonProperty("iCalUId")
     private String iCalUId;
+    @JsonProperty("subject")
     private String subject;
-    private boolean isOrganizer;
+    @JsonProperty("isCancelled")
     private boolean isCancelled;
+    @JsonProperty("attendees")
     private List<GraphAttendee> attendees;
+    @JsonProperty("organizer")
     private GraphAttendee organizer;
+    @JsonProperty("start")
     private GraphEventDate start;
+    @JsonProperty("createdDateTime")
     private GraphEventCreationDate createdDateTime;
 
     @JsonIgnore
@@ -22,7 +29,8 @@ public class GraphEvent {
     @JsonIgnore
     private Date eventDate;
 
-    public class GraphEventDate {
+    public static class GraphEventDate {
+        @JsonProperty("dateTime")
         private Date dateTime;
 
         public void setDateTime(Date dateTime) {
@@ -34,12 +42,18 @@ public class GraphEvent {
         }
     }
 
-    public class GraphEventCreationDate {
+    public static class GraphEventCreationDate {
+        @JsonProperty("hourOfDay")
         private int hourOfDay;
+        @JsonProperty("minute")
         private int minute;
+        @JsonProperty("second")
         private int second;
+        @JsonProperty("dayOfMonth")
         private int dayOfMonth;
+        @JsonProperty("month")
         private int month;
+        @JsonProperty("year")
         private int year;
 
         public int getHourOfDay() {
@@ -120,12 +134,12 @@ public class GraphEvent {
         this.subject = subject;
     }
 
-    public boolean isOrganizer() {
-        return isOrganizer;
+    public boolean isCancelled() {
+        return isCancelled;
     }
 
-    public void setOrganizer(boolean organizer) {
-        isOrganizer = organizer;
+    public void setCancelled(boolean cancelled) {
+        isCancelled = cancelled;
     }
 
     public List<GraphAttendee> getAttendees() {
@@ -134,6 +148,14 @@ public class GraphEvent {
 
     public void setAttendees(List<GraphAttendee> attendees) {
         this.attendees = attendees;
+    }
+
+    public GraphAttendee getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(GraphAttendee organizer) {
+        this.organizer = organizer;
     }
 
     public GraphEventDate getStart() {
@@ -166,21 +188,5 @@ public class GraphEvent {
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
-    }
-
-    public boolean isCancelled() {
-        return isCancelled;
-    }
-
-    public void setCancelled(boolean cancelled) {
-        isCancelled = cancelled;
-    }
-
-    public GraphAttendee getOrganizer() {
-        return organizer;
-    }
-
-    public void setOrganizer(GraphAttendee organizer) {
-        this.organizer = organizer;
     }
 }

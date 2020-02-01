@@ -8,25 +8,27 @@ import java.util.Objects;
 @Embeddable
 public class AttendanceId implements Serializable{
 
-    @Column(name = "eventId")
-    private long eventId;
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "meetingId")
+    private long meetingId;
     @Column(name = "personId")
     private long personId;
 
     public AttendanceId() {
     }
 
-    public AttendanceId(long eventId, long personId) {
-        this.eventId = eventId;
+    public AttendanceId(long meetingId, long personId) {
+        this.meetingId = meetingId;
         this.personId = personId;
     }
 
     public long getEventId() {
-        return eventId;
+        return meetingId;
     }
 
     public void setEventId(long eventId) {
-        this.eventId = eventId;
+        this.meetingId = eventId;
     }
 
     public long getPersonId() {
@@ -42,12 +44,12 @@ public class AttendanceId implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AttendanceId that = (AttendanceId) o;
-        return eventId == that.eventId &&
+        return meetingId == that.meetingId &&
                 personId == that.personId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(eventId, personId);
+        return Objects.hash(meetingId, personId);
     }
 }
